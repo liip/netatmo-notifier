@@ -1,14 +1,22 @@
-const http = require('http');
+const netatmo = require('netatmo');
+require('dotenv').config();
 
-const hostname = '127.0.0.1';
-const port = 3000;
+// Netatmo API Authentication
+let auth = {
+	"client_id": process.env.NETATMO_CLIENT_ID,
+	"client_secret": process.env.NETATMO_CLIENT_SECRET,
+	"username": process.env.NETATMO_USERNAME,
+	"password": process.env.NETATMO_PASSWORD,
+};
+let api = new netatmo(auth);
 
-const server = http.createServer((req, res) => {
-	res.statusCode = 200;
-	res.setHeader('Content-Type', 'text/plain');
-	res.end('Hello, World!\n');
-});
+let getHomeData = function(err, data) {
+	console.log(data);
+};
 
-server.listen(port, hostname, () => {
-	console.log(`Server running at http://${hostname}:${port}/`);
-});
+// Event Listeners
+api.on('get-homedata', getHomeData);
+
+// Get Home Data
+// https://dev.netatmo.com/apidocumentation/security#homesdata
+api.getHomeData();
