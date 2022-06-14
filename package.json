@@ -1,6 +1,32 @@
 {
+  "name": "netatmo-notifier",
+  "version": "1.0.0",
+  "description": "Allow us to be notified by SMS or Slack when there are alerts from Netatmo Smoke Alarms.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liip/netatmo-notifier.git"
+  },
+  "keywords": [
+    "netatmo",
+    "slack",
+    "twilio"
+  ],
+  "author": "Sylvain Nicolet",
+  "license": "MIT",
+  "homepage": "https://github.com/liip/netatmo-notifier/blob/master/README.md",
+  "bugs": {
+    "url": "https://github.com/liip/netatmo-notifier/issues"
+  },
+  "main": "app.js",
   "dependencies": {
     "dotenv": "^16.0.1",
     "netatmo": "^2.4.0"
+  },
+  "engines": {
+    "node": ">=16.x"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
