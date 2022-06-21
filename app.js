@@ -21,12 +21,12 @@ netatmo.addWebhook(auth, webhook)
 
 // Create express server
 const app = express();
+app.use(express.json());
 const port = 80;
 
 // Webhook route
-app.post('/webhook', function (req, res) {
-	res.send('New event!');
-	console.log('New event!')
+app.post('/webhook', function (request, response) {
+	response.send(request.body);
 });
 
 // Start server
