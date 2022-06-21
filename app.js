@@ -1,5 +1,5 @@
 require('dotenv').config();
-const netatmo = require('./services/netatmo')
+const Netatmo = require('./services/Netatmo')
 const express = require('express');
 
 // Netatmo authentification
@@ -13,10 +13,11 @@ const auth = {
 };
 
 // Netatmo webhook
-const webhook = process.env.NETATMO_WEBHOOK;
+const webhook = process.env.APP_URL + '/webhook';
 
 // Authenticate and set webhook
-let netatmoApi = new netatmo(auth, webhook);
+let netatmo = new Netatmo();
+netatmo.addWebhook(auth, webhook)
 
 // Create express server
 const app = express();
