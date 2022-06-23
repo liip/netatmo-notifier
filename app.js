@@ -1,22 +1,35 @@
-const netatmo = require('netatmo');
-require('dotenv').config();
+require("dotenv").config();
+const Netatmo = require("./services/Netatmo");
+const express = require("express");
 
-// Netatmo API Authentication
-let auth = {
-	"client_id": process.env.NETATMO_CLIENT_ID,
-	"client_secret": process.env.NETATMO_CLIENT_SECRET,
-	"username": process.env.NETATMO_USERNAME,
-	"password": process.env.NETATMO_PASSWORD,
-};
-let api = new netatmo(auth);
-
-let getHomeData = function(err, data) {
-	console.log(data);
+// Netatmo authentication
+const auth = {
+  client_id: process.env.NETATMO_CLIENT_ID,
+  client_secret: process.env.NETATMO_CLIENT_SECRET,
+  username: process.env.NETATMO_USERNAME,
+  password: process.env.NETATMO_PASSWORD,
+  scope: "read_smokedetector",
+  grant_type: "password",
 };
 
-// Event Listeners
-api.on('get-homedata', getHomeData);
+// Netatmo webhook
+const webhook = process.env.APP_URL + "/webhook";
 
-// Get Home Data
-// https://dev.netatmo.com/apidocumentation/security#homesdata
-api.getHomeData();
+// Authenticate and set webhook
+let netatmo = new Netatmo();
+netatmo.addWebhook(auth, webhook);
+
+// Create express server
+const app = express();
+app.use(express.json());
+const port = 80;
+
+// Webhook route
+app.post("/webhook", function (request, response) {
+  response.send(request.body);
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
