@@ -2,7 +2,7 @@ require('dotenv').config();
 const Netatmo = require('./services/Netatmo')
 const express = require('express');
 
-// Netatmo authentification
+// Netatmo authentication
 const auth = {
 	client_id: process.env.NETATMO_CLIENT_ID,
 	client_secret: process.env.NETATMO_CLIENT_SECRET,

@@ -1,7 +1,8 @@
+require('dotenv').config();
 const util = require('util');
 const qs = require('qs');
 const axios = require('axios');
-const BASE_URL = 'https://api.netatmo.net';
+const BASE_URL = process.env.NETATMO_BASE_URL;
 
 class Netatmo {
 
@@ -26,7 +27,7 @@ class Netatmo {
 			grant_type: args.grant_type,
 		};
 
-		var url = util.format('%s/oauth2/token', BASE_URL);
+		let url = util.format('%s/oauth2/token', BASE_URL);
 
 		const options = {
 			method: 'POST',
@@ -39,8 +40,8 @@ class Netatmo {
 			.then(function (response) {
 				console.log(response.data);
 
-				var access_token = response.data.access_token;
-				var url = util.format('%s/api/addwebhook', BASE_URL);
+				let access_token = response.data.access_token;
+				let url = util.format('%s/api/addwebhook', BASE_URL);
 
 				const options = {
 					method: 'POST',
