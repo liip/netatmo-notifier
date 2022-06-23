@@ -2,7 +2,7 @@
 [![GitHub license](https://img.shields.io/github/license/liip/netatmo-notifier)](https://github.com/liip/netatmo-notifier/blob/master/LICENSE) 
 
 Allow us to be notified by SMS or Slack when there are alerts from Netatmo Smoke Alarms.  
-Netatmo API : https://dev.netatmo.com/
+Netatmo API Platform : https://dev.netatmo.com/
 ## Quickstart
 
 ### Clone repository
@@ -21,3 +21,11 @@ Copy `.env.default` to `.env`.
 $ cp .env.default .env
 ```
 Then open the file `.env` and fill-in the values.
+
+1. Create an account on the Netatmo API plateforme to use `username` and `password`
+2. Create a new app to use `client_id` and `client_secret`
+
+### Run the server
+```shell
+$ node app.js
+```
