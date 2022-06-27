@@ -16,7 +16,7 @@ class Netatmo {
    * Add webhook
    * * @param webhook
    */
-  addWebhook(webhook) {
+  static addWebhook(webhook) {
     this.authenticate()
       .then(function (response) {
         let access_token = response.data.access_token
@@ -35,7 +35,7 @@ class Netatmo {
 
         axios(options)
           .then(function (response) {
-            // console.log(response.data)
+            console.log(response.data)
           })
           .catch(function (error) {
             console.log(error)
@@ -49,7 +49,7 @@ class Netatmo {
   /**
    * Authenticate
    */
-  authenticate() {
+  static authenticate() {
     const data = {
       client_id: process.env.NETATMO_CLIENT_ID,
       client_secret: process.env.NETATMO_CLIENT_SECRET,
@@ -69,6 +69,102 @@ class Netatmo {
     }
 
     return axios(options)
+  }
+
+  /**
+   * Get event description
+   */
+  static getEventDescription(eventType, subType) {
+
+    if (eventType === 'battery_status') {
+      if (subType === 0) {
+        return 'Low'
+      }
+      else if (subType === 1) {
+        return 'Very Low'
+      }
+      else {
+        return 'Unknown subtype'
+      }
+    }
+
+    if (eventType === 'detection_chamber_status') {
+      if (subType === 0) {
+        return 'Clean'
+      }
+      else if (subType === 1) {
+        return 'Dusty'
+      }
+      else {
+        return 'Unknown subtype'
+      }
+    }
+
+    if (eventType === 'hush') {
+      if (subType === 0) {
+        return 'Activate'
+      }
+      else {
+        return 'Unknown subtype'
+      }
+    }
+
+    if (eventType === 'smoke') {
+      if (subType === 0) {
+        return 'Cleared'
+      }
+      else if (subType === 1) {
+        return 'Detected'
+      }
+      else {
+        return 'Unknown subtype'
+      }
+    }
+
+    if (eventType === 'sound_test') {
+      if (subType === 0) {
+        return 'Ok'
+      }
+      else if (subType === 1) {
+        return 'Error'
+      }
+      else {
+        return 'Unknown subtype'
+      }
+    }
+
+    if (eventType === 'tampered') {
+      if (subType === 0) {
+        return 'Ready'
+      }
+      else if (subType === 1) {
+        return 'Tampered'
+      }
+      else {
+        return 'Unknown subtype'
+      }
+    }
+
+    if (eventType === 'wifi_status') {
+      if (subType === 0) {
+        return 'Error'
+      }
+      else if (subType === 1) {
+        return 'Ok'
+      }
+      else {
+        return 'Unknown subtype'
+      }
+    }
+
+    return 'Unknown event'
+  }
+
+  /**
+   * Get device
+   */
+  static getDevice(deviceId, devices) {
+    return devices.find(device => device.id === deviceId)
   }
 }
 
