@@ -35,7 +35,7 @@ class Netatmo {
 
         axios(options)
           .then(function (response) {
-            console.log(response.data);
+            // console.log(response.data);
           })
           .catch(function (error) {
             console.log(error);
