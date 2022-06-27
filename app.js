@@ -18,11 +18,10 @@ const port = 80
 // Webhook route
 app.post('/webhook', function (request, response) {
 
-  let homeId = request.body.home_id
-  let deviceId = request.body.device_id
-  let eventType = request.body.event_type
-  let subType = request.body.sub_type
-  let eventDescription = getEventDescription(eventType, subType)
+  const deviceId = request.body.device_id
+  const eventType = request.body.event_type
+  const subType = request.body.sub_type
+  const eventDescription = getEventDescription(eventType, subType)
 
   let auth = {
     client_id: process.env.NETATMO_CLIENT_ID,
