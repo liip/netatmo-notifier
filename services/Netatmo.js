@@ -14,7 +14,7 @@ class Netatmo {
 
   /**
    * Add webhook
-   * * @param webhook
+   * @param webhook
    */
   static addWebhook(webhook) {
     this.authenticate()

@@ -1,7 +1,8 @@
-require('dotenv').config()
-const NetatmoService = require('./services/Netatmo')
-const express = require('express')
-const netatmo = require('netatmo')
+require("dotenv").config();
+const NetatmoService = require("./services/Netatmo");
+const SlackService = require("./services/Slack");
+const express = require("express");
+const netatmo = require('netatmo');
 
 // Netatmo webhook
 const WEBHOOK = process.env.APP_URL + '/webhook'
@@ -36,8 +37,12 @@ app.post('/webhook', function (request, response) {
     let homeName = data.homes[0].name
     let deviceName = NetatmoService.getDevice(deviceId, data.homes[0].smokedetectors).name
 
-    console.log(`Home: ${homeName}\nDevice: ${deviceName}\nEvent Type: ${eventType}\nDescription: ${eventDescription}`)
-  }
+    let msg = `Home: ${homeName}\nDevice: ${deviceName}\nEvent Type: ${eventType}\nDescription: ${eventDescription}`
+
+    // Send to slack
+    let slackService = new SlackService();
+    slackService.sendMessage(msg);
+  };
 
   // Event Listeners
   api.on('get-homedata', getHomeData)
