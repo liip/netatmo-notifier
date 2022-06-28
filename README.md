@@ -27,5 +27,5 @@ Then open the file `.env` and fill-in the values.
 
 ### Run the server
 ```shell
-$ node app.js
+$ npm start
 ```

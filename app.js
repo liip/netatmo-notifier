@@ -53,6 +53,6 @@ app.post('/webhook', function (request, response) {
 })
 
 // Start server
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`App listening on port ${port}`)
 })
