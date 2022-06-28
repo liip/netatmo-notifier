@@ -1,6 +1,7 @@
 require('dotenv').config()
 const axios = require('axios')
 const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK
+const SLACK_CHANNEL = process.env.SLACK_CHANNEL
 
 class Slack {
 
@@ -15,7 +16,10 @@ class Slack {
    * @param msg
    */
   static sendMessage(msg) {
-    axios.post(SLACK_WEBHOOK, {'text': msg})
+    axios.post(SLACK_WEBHOOK, {
+      'channel': SLACK_CHANNEL,
+      'text': msg,
+    })
       .then(function () {
         console.log('Message was successfully sent to slack')
       })
