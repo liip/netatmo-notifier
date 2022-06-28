@@ -1,6 +1,7 @@
 require('dotenv').config()
 const NetatmoService = require('./services/Netatmo')
 const SlackService = require('./services/Slack')
+const TwilioService = require('./services/Twilio')
 const express = require('express')
 const netatmo = require('netatmo')
 
@@ -39,8 +40,11 @@ app.post('/webhook', function (request, response) {
 
     let msg = `Home: ${homeName}\nDevice: ${deviceName}\nEvent Type: ${eventType}\nDescription: ${eventDescription}`
 
-    // Send to slack
+    // Send message to slack
     SlackService.sendMessage(msg)
+
+    // Send sms to twilio
+    TwilioService.sendMessage(msg)
   }
 
   // Event Listeners
