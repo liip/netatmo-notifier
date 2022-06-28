@@ -104,6 +104,9 @@ class Netatmo {
       if (subType === 0) {
         return 'Activate'
       }
+      else if (subType === 1) {
+        return 'Hushed for 15 minutes'
+      }
       else {
         return 'Unknown subtype'
       }
