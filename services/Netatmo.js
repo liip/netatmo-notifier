@@ -17,58 +17,30 @@ class Netatmo {
    * @param webhook
    */
   static addWebhook(webhook) {
-    this.authenticate()
-      .then(function (response) {
-        let access_token = response.data.access_token
-        let url = util.format('%s/api/addwebhook', BASE_URL)
-
-        const options = {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${access_token}`
-          },
-          data: {
-            url: webhook
-          },
-          url,
-        }
-
-        axios(options)
-          .then(function (response) {
-            console.log(response.data)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-  }
-
-  /**
-   * Authenticate
-   */
-  static authenticate() {
-    const data = {
-      client_id: process.env.NETATMO_CLIENT_ID,
-      client_secret: process.env.NETATMO_CLIENT_SECRET,
-      username: process.env.NETATMO_USERNAME,
-      password: process.env.NETATMO_PASSWORD,
-      scope: 'read_smokedetector',
-      grant_type: 'password',
-    }
-
-    let url = util.format('%s/oauth2/token', BASE_URL)
+    let access_token = process.env.NETATMO_TOKEN_ACCESS
+    let url = util.format('%s/api/addwebhook', BASE_URL)
 
     const options = {
       method: 'POST',
-      headers: {'content-type': 'application/x-www-form-urlencoded'},
-      data: qs.stringify(data),
+      headers: {
+        'Authorization': `Bearer ${access_token}`
+      },
+      data: {
+        url: webhook
+      },
       url,
     }
-
-    return axios(options)
+    console.log(`trying to create a webhook on url ${url}`)
+    axios(options)
+      .then(function (response) {
+        console.log('webhook created with success')
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log('---------------------------------------------------------------------------------');
+        console.log(error.response.data)
+        console.log('---------------------------------------------------------------------------------');
+      })
   }
 
   /**
