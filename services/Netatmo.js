@@ -19,15 +19,16 @@ class Netatmo {
   static addWebhook(webhook) {
     let access_token = process.env.NETATMO_TOKEN_ACCESS
     let url = util.format('%s/api/addwebhook', BASE_URL)
+    const data = {
+      url: webhook
+    }
 
     const options = {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${access_token}`
       },
-      data: {
-        url: webhook
-      },
+      data: qs.stringify(data),
       url,
     }
     console.log(`trying to create a webhook on url ${url}`)
